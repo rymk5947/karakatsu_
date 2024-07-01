@@ -1,0 +1,71 @@
+<section class="hero is-success">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        ユーザー編集
+      </h1>
+    </div>
+  </div>
+</section>
+
+
+<% if @user.errors.any? %>
+  <div class="notification is-danger">
+    <h2><%= pluralize(@user.errors.count, "error") %> prohibited this object from being saved: not successfully</h2>
+    <ul>
+      <% @user.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-6">
+        <%= form_for @user do |f| %>
+          <div class="field">
+            <%= f.label :name, "名前", class: "label" %>
+            <%= f.text_field :name, class: "input" %>
+          </div>
+
+          <div class="field">
+            <%= f.label :age, "年齢", class: "label" %>
+            <%= f.text_field :age, class: "input" %>
+          </div>
+
+          <div class="field">
+            <%= f.label :sex, "性別", class: "label" %>
+            <%= f.select :sex, [['男性', 'male'], ['女性', 'female'], ['その他', 'other'], ['選択しない', 'not_selected']], {}, {class: "input", prompt: "性別を選択してください"} %>
+          </div>
+
+          <div class="field">
+            <%= f.label :email, "メールアドレス", class: "label" %>
+            <%= f.email_field :email, class: "input" %>
+          </div>
+
+          <div class="field">
+            <%= f.label :introduction, "自己紹介", class: "label" %>
+            <%= f.text_area :introduction, class: "textarea" %>
+          </div>
+
+          <div class="field">
+            <% if @user.profile_image.attached? %>
+            <%= f.label :profile_image, "現在のプロフィール画像", class: "label" %>
+            <%= image_tag url_for(@user.profile_image.variant(format: 'png')), fallback: "images.png" %>
+            <% end %>
+
+            <%= f.label :profile_image, "写真の編集", class: "label" %>
+            <%= f.file_field :profile_image %>
+
+            <%= f.check_box :_destroy %>
+            <%= f.label :_destroy, "写真を削除する" %>
+          </div>
+
+          <%= f.submit "更新", class: "button is-success" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>

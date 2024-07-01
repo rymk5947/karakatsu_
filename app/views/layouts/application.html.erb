@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Karakatsu</title>
+
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <script src="https://kit.fontawesome.com/0fed6ac93a.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.1/css/bulma.min.css">
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+  </head>
+
+  <body>
+    <% if flash[:notice] %>
+      <div class="notification is-info">
+        <p class="notice"><%= notice %></p>
+      </div>
+    <% end %>
+
+    <% if flash[:alert] %>
+      <div class="notification is-danger">
+        <p class="alert"><%= alert %></p>
+      </div>
+    <% end %>
+
+    <nav class="navbar is-warning">
+    <%= link_to root_path, class: "navbar-item" do %>
+      <h1 class="title is-4" style="font-family: cursive;">カラ活</h1>
+    <% end %>
+      <div class="navbar-burger burger" data-target="navbarExampleTransparentExample">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+
+    <% if user_signed_in? %>
+      <div id="navbarExampleTransparentExample" class="navbar-menu">
+        <div class="navbar-item">
+           <%= link_to "投稿一覧", posts_path, class: "navbar-item button is-warning is-light" %>
+        </div>
+        <div class="navbar-item">
+            <%= link_to "新規投稿", new_post_path, class: "navbar-item button is-warning is-light" %>
+        </div>
+
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <div class="field is-grouped">
+              <p class="control">
+                <%= link_to "ユーザー一覧", users_path, class: "navbar-item button is-warning is-light" %>
+              </p>
+              <p class="control">
+                  <%= link_to "マイページ", user_path(current_user), class: "button is-warning is-light" %>
+              </p>
+              <p class="control">
+                <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "button is-warning is-light" %>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% else %>
+      <div id="navbarExampleTransparentExample" class="navbar-menu">
+        <div class="navbar-item">
+           <%= link_to "投稿一覧", posts_path, class: "navbar-item button is-warning is-light" %>
+        </div>
+        <div class="navbar-item">
+            <%= link_to "ユーザー一覧", users_path, class: "navbar-item button is-warning is-light" %>
+        </div>
+
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <div class="field is-grouped">
+              <p class="control">
+                <%= link_to "ログイン", new_user_session_path, class: "button is-warning is-light" %>
+              </p>
+              <p class="control">
+                <%= link_to "新規登録", new_user_registration_path, class: "button is-warning is-light" %>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+    </nav>
+    <%= yield %>
+  </body>
+</html>

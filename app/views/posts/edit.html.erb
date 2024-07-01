@@ -1,0 +1,56 @@
+<section class="hero is-success">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        投稿内容の編集
+      </h1>
+    </div>
+  </div>
+</section>
+
+<% if @post.errors.any? %>
+  <div class="notification is-danger">
+    <h2><%= pluralize(@post.errors.count, "error") %> prohibited this object from being saved: not successfully</h2>
+    <ul>
+      <% @post.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-6">
+        <%= form_for @post do |f| %>
+          <div class="field">
+            <% options = [["J-POP"], ["アニソン"], ["K-POP"], ["ボーカロイド"], ["演歌"], ["洋楽"], ["その他"]] %>
+            <% selected_value = @selected_genre || "選択されていません" %>
+            <%= select_tag :genre, options_for_select(options, selected_value), class: "select is-fullwidth" %>
+          </div>
+
+          <div class="field">
+            <%= f.label :message, "メッセージ", class: "label" %>
+            <%= f.text_area :message, class: "textarea" %>
+          </div>
+
+          <div class="field">
+            <% if f.object.photo.attached? %>
+            <%= f.label :photo, "現在投稿中の写真", class: "label" %>
+            <%= image_tag url_for(@post.photo), alt: "投稿画像" %>
+            <% end %>
+
+            <%= f.label :photo, "写真の編集", class: "label" %>
+            <%= f.file_field :photo %>
+
+            <%= f.check_box :_destroy %>
+            <%= f.label :_destroy, "写真を削除する" %>
+          </div>
+
+          <%= f.submit '更新', class: "button is-success" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>

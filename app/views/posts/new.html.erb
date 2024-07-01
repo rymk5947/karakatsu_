@@ -1,0 +1,37 @@
+<section class="hero is-success">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        投稿フォーム
+      </h1>
+    </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-6">
+        <%= form_for @posts do |f| %>
+          <div class="field">
+            <%= f.label :genre, "好きなジャンル", class: "label" %>
+            <%= f.select :genre, [["J-POP"], ["アニソン"], ["K-POP"], ["ボーカロイド"], ["演歌"], ["洋楽"], ["その他"]], class: "input" %>
+          </div>
+
+          <div class="field">
+            <%= f.label :message, "メッセージ", class: "label"  %>
+            <%= f.text_area :message, class: "textarea" %>
+          </div>
+
+          <div class="field">
+            <%= f.label :photo, "写真", class: "label"  %>
+            <%= f.file_field :photo, class: "input" %>
+          </div>
+
+          <%= f.submit '投稿', class: "button is-success" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>

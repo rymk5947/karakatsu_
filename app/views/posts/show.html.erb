@@ -1,0 +1,79 @@
+<section class="hero is-success">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        投稿詳細
+      </h1>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-7">
+        <div class="card">
+          <div class="card-image">
+            <figure class="image is-4by3">
+                <% if @post.photo.present? %>
+                  <%= image_tag url_for(@post.photo), alt: "投稿写真" %>
+                <% end %>
+            </figure>
+          </div>
+          <div class="card-content">
+            <div class="media">
+              <div class="media-content">
+                <p class="genre is-4">
+                  <table class="table is-narrow">
+                    <tr>
+                      <th>好きなジャンル</th>
+                    </tr>
+                    <tr>
+                      <td>
+                       <% options = [["J-POP"], ["アニソン"], ["K-POP"], ["ボーカロイド"], ["演歌"], ["洋楽"], ["その他"]] %>
+                       <% selected_value = @selected_genre || "選択されていません" %>
+                       <%= select_tag :genre, options_for_select(options, selected_value), class: "input", style: "background-color: transparent; color: black;", disabled: true %>
+                      </td>
+                    </tr>
+                  </table>
+                </p>
+              </div>
+            </div>
+            <div class="content">
+              <table class="table is-narrow">
+                <tr>
+                  <th>メッセージ</th>
+                </tr>
+                <tr>
+                  <td><%= simple_format @post.message %></td>
+                </tr>
+              </table>
+              <% if @post.user.id == current_user.id %>
+                <%= link_to "編集画面へ", edit_post_path(@post), class: "button is-success" %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="column is-4">
+        <article class="panel is-link">
+          <p class="panel-heading">
+            By <%= @post.user.name %>
+          </p>
+          <div class="panel-block">
+            <p class="control">
+              <%= @post.user.introduction %>
+            </p>
+          </div>
+          <%= link_to user_path(@post.user), class: "panel-block" do %>
+            <span class="panel-icon">
+              <i class="fas fa-user" aria-hidden="true"></i>
+            </span>
+            <%= @post.user.name %> さんのページへ
+          <% end %>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>

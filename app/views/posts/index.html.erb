@@ -1,0 +1,50 @@
+<section class="hero is-success">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        投稿一覧
+      </h1>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="columns is-multiline">
+      <% @posts.each do |post| %>
+        <div class="column is-4">
+          <div class="card">
+            <div class="card-image">
+              <figure class="image is-4by3">
+                <%= link_to post_path(post) do %>
+                  <% if post.photo.present? %>
+                    <%= image_tag url_for(post.photo), alt: "投稿写真" %>
+                  <% end %>
+                <% end %>
+              </figure>
+            <div class="card-content">
+              <div class="media">
+                <div class="media-left">
+                  <figure class="image is-48x48">
+                    <% if @user.profile_image %>
+                      <%= image_tag url_for(@user.profile_image.variant(format: 'png')) %>
+                    <% else %>
+                      <%= image_tag "no_image.png" %>
+                    <% end %>
+                  </figure>
+                </div>
+                <div class="media-content">
+                  <div class="title"><%=link_to post.user.name, user_path(post.user) %></div>
+                </div>
+              </div>
+
+              <div class="content">
+                <time><%= post.updated_at.strftime("%Y-%m-%d %H:%M") %></time>更新
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>
