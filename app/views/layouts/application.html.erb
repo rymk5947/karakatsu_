@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.1/css/bulma.min.css">
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-
   </head>
 
   <body>
@@ -41,17 +40,17 @@
     <% if user_signed_in? %>
       <div id="navbarExampleTransparentExample" class="navbar-menu">
         <div class="navbar-item">
-           <%= link_to "投稿一覧", posts_path, class: "navbar-item button is-warning is-light" %>
+           <%= link_to "投稿一覧", posts_path, class: "button is-warning is-light" %>
         </div>
         <div class="navbar-item">
-            <%= link_to "新規投稿", new_post_path, class: "navbar-item button is-warning is-light" %>
+            <%= link_to "新規投稿", new_post_path, class: "button is-warning is-light" %>
         </div>
 
         <div class="navbar-end">
           <div class="navbar-item">
             <div class="field is-grouped">
               <p class="control">
-                <%= link_to "ユーザー一覧", users_path, class: "navbar-item button is-warning is-light" %>
+                <%= link_to "ユーザー一覧", users_path, class: "button is-warning is-light" %>
               </p>
               <p class="control">
                   <%= link_to "マイページ", user_path(current_user), class: "button is-warning is-light" %>
@@ -66,10 +65,10 @@
     <% else %>
       <div id="navbarExampleTransparentExample" class="navbar-menu">
         <div class="navbar-item">
-           <%= link_to "投稿一覧", posts_path, class: "navbar-item button is-warning is-light" %>
+           <%= link_to "投稿一覧", posts_path, class: "button is-warning is-light" %>
         </div>
         <div class="navbar-item">
-            <%= link_to "ユーザー一覧", users_path, class: "navbar-item button is-warning is-light" %>
+            <%= link_to "ユーザー一覧", users_path, class: "button is-warning is-light" %>
         </div>
 
         <div class="navbar-end">
@@ -86,8 +85,17 @@
         </div>
       </div>
     <% end %>
-
     </nav>
+
+    <main>
+        <p id="notice"><%= notice %></p>
+        <div class="d-flex justify-content-center mb-2">
+          <%= render "searches/searche" %>
+        </div>
+    </main>
+
     <%= yield %>
+
   </body>
+
 </html>

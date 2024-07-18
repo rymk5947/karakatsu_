@@ -1,17 +1,14 @@
 class PostsController < ApplicationController
+   before_action :authenticate_user!, except: [:index]
 
   def index
-    if current_user
-      @user = User.find_by(id: current_user.id)
-      @posts = Post.all
-    else
-      redirect_to "/users/sign_in", notice: "ログインしてください"
-    end
+    @posts = Post.all
   end
 
   def show
     @post = Post.find(params[:id])
     @selected_genre = Post.find(params[:id]).genre
+    @post_comment = PostComment.new
   end
 
   def new
@@ -19,20 +16,28 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = Post.new(post_params)
-    @post.user_id = current_user.id
-    @post.save
-    redirect_to post_path(@post)
+    @post = current_user.posts.build(post_params)
+    if @post.save
+      redirect_to post_path(@post), notice: "投稿しました。"
+    else
+      render :new
+    end
   end
 
   def edit
     @post = Post.find(params[:id])
+    if @post.user != current_user
+        redirect_to posts_path, alert: "不正なアクセスです。"
+    end
   end
 
   def update
     @post = Post.find(params[:id])
-    @post.update(post_params)
-    redirect_to post_path(@post)
+    if @post.update(post_params)
+      redirect_to post_path(@post), notice: "更新しました。"
+    else
+      render :edit
+    end
   end
 
   def destroy
@@ -46,3 +51,4 @@ class PostsController < ApplicationController
       params.require(:post).permit(:genre, :message, :photo)
     end
 end
+

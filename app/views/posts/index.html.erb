@@ -26,8 +26,8 @@
               <div class="media">
                 <div class="media-left">
                   <figure class="image is-48x48">
-                    <% if @user.profile_image %>
-                      <%= image_tag url_for(@user.profile_image.variant(format: 'png')) %>
+                    <% if post.user.profile_image %>
+                      <%= image_tag url_for(post.user.profile_image.variant(format: 'png')) %>
                     <% else %>
                       <%= image_tag "no_image.png" %>
                     <% end %>
@@ -40,6 +40,9 @@
 
               <div class="content">
                 <time><%= post.updated_at.strftime("%Y-%m-%d %H:%M") %></time>更新
+              </div>
+              <div>
+                <p><%= post.updated_at.strftime("%Y-%m-%d %H:%M") %></time>更新
               </div>
             </div>
           </div>

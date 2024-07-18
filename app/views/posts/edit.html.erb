@@ -23,8 +23,9 @@
   <div class="container">
     <div class="columns is-centered">
       <div class="column is-6">
-        <%= form_for @post do |f| %>
+        <%= form_for @post, url: post_path(@post), method: :patch do |f| %>
           <div class="field">
+            好きなジャンル
             <% options = [["J-POP"], ["アニソン"], ["K-POP"], ["ボーカロイド"], ["演歌"], ["洋楽"], ["その他"]] %>
             <% selected_value = @selected_genre || "選択されていません" %>
             <%= select_tag :genre, options_for_select(options, selected_value), class: "select is-fullwidth" %>
@@ -48,9 +49,9 @@
             <%= f.label :_destroy, "写真を削除する" %>
           </div>
 
-          <%= f.submit '更新', class: "button is-success" %>
-        <% end %>
-      </div>
+            <%= link_to "更新", post_path(@post), method: :patch, class: "button is-success" %>
+            <%= link_to "投稿の削除", post_path(@post), method: :delete, data: { confirm: "削除しますか？" }, class: "button is-success" %>
+            <% end %>
     </div>
   </div>
 </section>
