@@ -1,4 +1,9 @@
 class PostCommentsController < ApplicationController
+   def show
+     @post_comment = PostComment.find_by(id: params[:id])
+     @post_comment ||= PostComment.new
+   end
+
   def create
     post = Post.find(params[:post_id])
     comment = current_user.post_comments.new(post_comment_params)

@@ -3,12 +3,17 @@ class PostsController < ApplicationController
 
   def index
     @posts = Post.all
+    @user = current_user # ここで@userを現在のユーザーに設定する例
+    if params[:message].present?
+      @posts = Post.search_for(params[:message], params[:method])
+    end
   end
 
   def show
     @post = Post.find(params[:id])
     @selected_genre = Post.find(params[:id]).genre
-    @post_comment = PostComment.new
+    @post_comment = @post.post_comments.new
+    @user = User.find(params[:id])
   end
 
   def new
@@ -16,7 +21,7 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = current_user.posts.build(post_params)
+    @post = current_user.posts.new(post_params)
     if @post.save
       redirect_to post_path(@post), notice: "投稿しました。"
     else

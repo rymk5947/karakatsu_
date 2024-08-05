@@ -1,17 +1,13 @@
-<section class="hero is-success">
-  <div class="hero-body">
-    <div class="container">
-      <h1 class="title">
-        投稿詳細
-      </h1>
-    </div>
+<div class="jumbotron" style="background-color: #3eb370; margin-bottom: 40px;">
+  <div class="container">
+    <h3 class="text-white" style="display: flex; align-items: center; height: 120px;">投稿詳細</h3>
   </div>
-</section>
+</div>
 
 <section class="section">
   <div class="container">
-    <div class="columns is-centered">
-      <div class="column is-7">
+    <div class="row justify-content-center">
+      <div class="col-7">
         <div class="card">
           <div class="card-image">
             <figure class="image is-4by3">
@@ -20,19 +16,17 @@
                 <% end %>
             </figure>
           </div>
-          <div class="card-content">
+          <div class="card-body">
             <div class="media">
-              <div class="media-content">
-                <p class="genre is-4">
-                  <table class="table is-narrow">
+              <div class="media-body">
+                <p class="genre h4">
+                  <table class="table">
                     <tr>
                       <th>好きなジャンル</th>
                     </tr>
                     <tr>
                       <td>
-                       <% options = [["J-POP"], ["アニソン"], ["K-POP"], ["ボーカロイド"], ["演歌"], ["洋楽"], ["その他"]] %>
-                       <% selected_value = @selected_genre || "選択されていません" %>
-                       <%= select_tag :genre, options_for_select(options, selected_value), class: "input", style: "background-color: transparent; color: black;", disabled: true %>
+                       <%= Post.genres.invert[@post.genre.to_s]%>
                       </td>
                     </tr>
                   </table>
@@ -40,7 +34,7 @@
               </div>
             </div>
             <div class="content">
-              <table class="table is-narrow">
+              <table class="table">
                 <tr>
                   <th>メッセージ</th>
                 </tr>
@@ -49,26 +43,26 @@
                 </tr>
               </table>
               <% if @post.user.id == current_user.id %>
-                <%= link_to "編集画面へ", edit_post_path(@post), class: "button is-success" %>
+                <%= link_to "編集画面へ", edit_post_path(@post), class: "btn btn-success" %>
               <% end %>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="column is-4">
-        <article class="panel is-link">
+      <div class="col-4">
+        <article class="panel bg-link">
           <p class="panel-heading">
             By <%= @post.user.name %>
           </p>
-          <div class="panel-block">
+          <div class="panel-body">
             <p class="control">
               <%= @post.user.introduction %>
             </p>
           </div>
-          <%= link_to user_path(@post.user), class: "panel-block" do %>
+          <%= link_to user_path(@post.user), class: "panel-body" do %>
             <span class="panel-icon">
-              <i class="fas fa-user" aria-hidden="true"></i>
+              <i class="fa fa-user" aria-hidden="true"></i>
             </span>
             <%= @post.user.name %> さんのページへ
           <% end %>
@@ -81,14 +75,16 @@
 <div>
   <p>コメント件数：<%= @post.post_comments.count %></p>
   <% @post.post_comments.each do |post_comment| %>
-    <p><%= image_tag post_comment.user.get_profile_image(100,100) %></p>
-    <%= post_comment.user.name %>
-    <%= post_comment.created_at.strftime('%Y/%m/%d') %><%= post_comment.comment %>
+    <%= post_comment.user %>
+    <% if post_comment.created_at.present? %>
+      <%= post_comment.created_at.strftime('%Y/%m/%d') %>
+    <% end %>
+    <%= post_comment.comment %>
   <% end %>
 </div>
 <div>
-  <%= form_with model: [@post, @post_comment] do |f| %>
+  <%= form_with model: [@post, @post_comment], url: post_comments_url(@post) do |f| %>
     <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
-    <%= f.submit "送信する" %>
+    <%= f.submit "送信する", class: "btn btn-primary" %>
   <% end %>
 </div>

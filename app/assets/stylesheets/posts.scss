@@ -1,3 +1,30 @@
 // Place all the styles related to the posts controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+.is-rounded {
+  border-radius: 50%; /* 丸くするためのスタイル */
+}
+
+.form-group {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.card {
+  margin: 0 auto; /* 左右の余白を自動的に均等にすることで中央に配置 */
+}
+
+.loved {
+  background-image: url("~parts7");
+  background-repeat: no-repeat;
+  height: 36px;
+  width: 36px;
+  background-size: 36px !important;
+}
+
+.hide-text {
+  display: block;
+  overflow: hidden;
+  text-indent: 110%;
+  white-space: nowrap;
+}

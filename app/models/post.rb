@@ -1,6 +1,25 @@
 class Post < ApplicationRecord
+  enum genres: {
+    "J-POP": "0", 
+    "アニソン": "1",
+    "K-POP": "2",
+    "ボーカロイド": "3",
+    "演歌": "4", 
+    "洋楽": "5", 
+    "その他": "6"
+  }
+
   has_one_attached :photo
+
   belongs_to :user
+
+  has_many :likes, -> { order(created_at: :desc) }, dependent: :destroy
+
+  def liked_by(user)
+    return false if user.nil?
+    likes.exists?(user_id: user.id)
+  end
+
   has_many :post_comments, dependent: :destroy
 
   with_options presence: true do
@@ -9,14 +28,14 @@ class Post < ApplicationRecord
   end
 
   def self.search_for(content, method)
-    if method == 'perfect'
-      Book.where(title: content)
-    elsif method == 'forward'
-      Book.where('title LIKE ?', content + '%')
-    elsif method == 'backward'
-      Book.where('title LIKE ?', '%' + content)
+    if method == "perfect"
+      where(message: content)
+    elsif method == "forward"
+      where("message LIKE ?", "#{content}%")
+    elsif method == "backward"
+      where("message LIKE ?", "%#{content}")
     else
-      Book.where('title LIKE ?', '%' + content + '%')
+      where("message LIKE ?", "%#{content}%")
     end
   end
 end

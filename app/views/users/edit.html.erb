@@ -1,19 +1,15 @@
-<section class="hero is-success">
-  <div class="hero-body">
-    <div class="container">
-      <h1 class="title">
-        ユーザー編集
-      </h1>
-    </div>
+<div class="jumbotron" style="background-color: #7B68EE; margin-bottom: 40px;">
+  <div class="container">
+    <h3 class="text-white" style="display: flex; align-items: center; height: 120px;">ユーザー編集</h3>
   </div>
-</section>
+</div>
 
 <% if @user.errors.any? %>
-  <div class="notification is-danger">
-    <h2><%= pluralize(@user.errors.count, "error") %> prohibited this object from being saved: not successfully</h2>
+  <div class="alert alert-danger">
+    <h2><%= pluralize(@user.errors.count, "エラー") %>が発生し、オブジェクトの保存に失敗しました:</h2>
     <ul>
       <% @user.errors.full_messages.each do |message| %>
-      <li><%= message %></li>
+        <li><%= message %></li>
       <% end %>
     </ul>
   </div>
@@ -21,48 +17,51 @@
 
 <section class="section">
   <div class="container">
-    <div class="columns is-centered">
-      <div class="column is-6">
-        <%= form_for @user do |f| %>
-          <div class="field">
-            <%= f.label :name, "名前", class: "label" %>
-            <%= f.text_field :name, class: "input" %>
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <%= form_for @user, html: {class: "form"} do |f| %>
+          <div class="form-group">
+            <%= f.label :name, "名前" %>
+            <%= f.text_field :name, class: "form-control" %>
           </div>
 
-          <div class="field">
-            <%= f.label :age, "年齢", class: "label" %>
-            <%= f.text_field :age, class: "input" %>
+          <div class="form-group">
+            <%= f.label :age, "年齢" %>
+            <%= f.text_field :age, class: "form-control" %>
           </div>
 
-          <div class="field">
-            <%= f.label :sex, "性別", class: "label" %>
-            <%= f.select :sex, [['男性', 'male'], ['女性', 'female'], ['その他', 'other'], ['選択しない', 'not_selected']], {}, {class: "input", prompt: "性別を選択してください"} %>
+          <div class="form-group">
+            <%= f.label :sex, "性別" %>
+          <br>
+            <%= f.select :sex, [['男性', 'male'], ['女性', 'female'], ['その他', 'other'], ['選択しない', 'not_selected']], {class: "form-control", prompt: "性別を選択してください"} %>
           </div>
 
-          <div class="field">
-            <%= f.label :email, "メールアドレス", class: "label" %>
-            <%= f.email_field :email, class: "input" %>
+          <div class="form-group">
+            <%= f.label :email, "メールアドレス" %>
+            <%= f.email_field :email, class: "form-control" %>
           </div>
 
-          <div class="field">
-            <%= f.label :introduction, "自己紹介", class: "label" %>
-            <%= f.text_area :introduction, class: "textarea" %>
+          <div class="form-group">
+            <%= f.label :introduction, "自己紹介" %>
+            <%= f.text_area :introduction, class: "form-control" %>
           </div>
 
-          <div class="field">
+          <div class="form-group">
             <% if @user.profile_image.attached? %>
-            <%= f.label :profile_image, "現在のプロフィール画像", class: "label" %>
-            <%= image_tag url_for(@user.profile_image.variant(format: 'png')), fallback: "images.png" %>
+              <%= f.label :profile_image, "現在のプロフィール画像" %>
+              <br>
+              <%= image_tag url_for(@user.profile_image.variant(resize_to_limit: [300, 300]).processed), class: "img-thumbnail", fallback: "images.png" %>
             <% end %>
 
-            <%= f.label :profile_image, "写真の編集", class: "label" %>
-            <%= f.file_field :profile_image %>
-
+          <br>
+            <%= f.label :profile_image, "プロフィール画像の変更", class: "label-spacing" %>
+            <%= f.file_field :profile_image, class: "form-control-file" %>
+　　　　　<br>
             <%= f.check_box :_destroy %>
             <%= f.label :_destroy, "写真を削除する" %>
           </div>
 
-          <%= f.submit "更新", class: "button is-success" %>
+          <%= f.submit "更新", class: "btn" %>
         <% end %>
       </div>
     </div>

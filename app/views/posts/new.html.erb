@@ -1,15 +1,11 @@
-<section class="hero is-success">
-  <div class="hero-body">
-    <div class="container">
-      <h1 class="title">
-        投稿フォーム
-      </h1>
-    </div>
+<div class="jumbotron" style="background-color: #00BFFF; margin-bottom: 40px;">
+  <div class="container">
+    <h3 class="text-white" style="display: flex; align-items: center; height: 120px;">新規投稿</h3>
   </div>
-</section>
+</div>
 
 <% if @posts.errors.any? %>
-  <div class="notification is-danger">
+  <div class="alert alert-danger">
     <h2><%= pluralize(@post.errors.count, "error") %> prohibited this object from being saved: not successfully</h2>
     <ul>
       <% @post.errors.full_messages.each do |message| %>
@@ -21,25 +17,25 @@
 
 <section class="section">
   <div class="container">
-    <div class="columns is-centered">
-      <div class="column is-6">
+    <div class="row justify-content-center">
+      <div class="col-6">
         <%= form_for @posts do |f| %>
-          <div class="field">
+          <div class="form-group">
             <%= f.label :genre, "好きなジャンル", class: "label" %>
-            <%= f.select :genre, [["J-POP"], ["アニソン"], ["K-POP"], ["ボーカロイド"], ["演歌"], ["洋楽"], ["その他"]], class: "input" %>
+            <%= f.select :genre, [["J-POP"], ["アニソン"], ["K-POP"], ["ボーカロイド"], ["演歌"], ["洋楽"], ["その他"]], class: "form-control" %>
           </div>
 
-          <div class="field">
+          <div class="form-group">
             <%= f.label :message, "メッセージ", class: "label"  %>
-            <%= f.text_area :message, class: "textarea" %>
+            <%= f.text_area :message, class: "form-control" %>
           </div>
 
-          <div class="field">
+          <div class="form-group">
             <%= f.label :photo, "写真", class: "label"  %>
-            <%= f.file_field :photo, class: "input" %>
+            <%= f.file_field :photo, class: "form-control" %>
           </div>
 
-          <%= f.submit '投稿', class: "button is-success" %>
+          <%= f.submit '投稿', class: "btn" %>
         <% end %>
       </div>
     </div>

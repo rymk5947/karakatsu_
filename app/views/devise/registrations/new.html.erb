@@ -1,103 +1,98 @@
-<section class="hero is-info">
-  <div class="hero-body">
-    <div class="container">
-      <h1 class="title">
-        新規登録
-      </h1>
-    </div>
+<div class="jumbotron" style="background-color: #90EE90; margin-bottom: 40px;">
+  <div class="container">
+    <h3 class="text-white" style="display: flex; align-items: center; height: 120px;">新規登録</h3>
   </div>
-</section>
+</div>
 
 <section class="section">
   <div class="container">
-    <div class="columns is-centered">
-      <div class="column is-5">
-        <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <div class="row justify-content-center">
+      <div class="col-5">
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "needs-validation", novalidate: true }) do |f| %>
         <%= render "devise/shared/error_messages", resource: resource %>
 
-
-        <div class="field">
-          <%= f.label :名前, class: "label" %>
-          <p class="control has-icons-left">
-            <%= f.text_field :name, autofocus: true, autocomplete: "name", :placeholder => "名前", class: "input" %>
-            <span class="icon is-small is-left">
-              <i class="fas fa-user"></i>
-            </span>
-          </p>
+        <div class="mb-3">
+          <%= f.label :名前, class: "form-label" %>
+        <div class="input-group">
+          <%= f.text_field :name, autofocus: true, autocomplete: "name",  placeholder: "name", class: "form-control", style: "padding-left: 50px;" %>
+        <div class="input-group-append">
+          <span class="input-group-text"><i class="fas fa-user"></i></span>
+        </div>
+        </div>
         </div>
 
-        <div class="field">
-          <%= f.label :年齢, class: "label" %>
-          <p class="control has-icons-left">
-            <%= f.text_field :age, autofocus: true, autocomplete: "age", :placeholder => "年齢", class: "input" %>
-            <span class="icon is-small is-left">
-              <i class="fas fa-user"></i>
-            </span>
-          </p>
+        <div class="mb-3">
+          <%= f.label :年齢, class: "form-label" %>
+        <div class="input-group">
+          <%= f.text_field :age, autofocus: true, autocomplete: "age", placeholder: "age", class: "form-control", style: "padding-left: 50px;" %>
+        <div class="input-group-append">
+            <span class="input-group-text"><i class="fas fa-user"></i></span>
+        </div>
+        </div>
         </div>
 
-        <div class="field">
-          <%= f.label :性別, class: "label" %>
-          <div class="control has-icons-left">
-            <%= f.select :sex, [['男性', 'male'], ['女性', 'female'], ['その他', 'other'], ['選択しない', 'not_selected']], {}, class: "input" %>
-            <span class="icon is-small is-left">
-              <i class="fa-solid fa-person-half-dress"></i>
-            </span>
+        <div class="mb-3">
+          <%= f.label :性別, class: "form-label" %>
+        <div class="input-group">
+           <%= f.select :sex, [['male', 'male'], ['female', 'female'], ['other', 'other'], ['no_selected', 'not_selected']], {}, class: "form-select",  style: "padding-left: 50px;" %>
+        <div class="input-group-append">
+            <span class="input-group-text"><i class="fa-solid fa-person-half-dress"></i></span>
+        </div>
+        </div>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :自己紹介, class: "form-label" %>
+        <div class="input-group">
+           <%= f.text_field :introduction, autofocus: true, autocomplete: "introduction", placeholder: "introduction", class: "form-control",  style: "padding-left: 50px;" %>
+        <div class="input-group-append">
+          <span class="input-group-text"><i class="fas fa-user"></i></span>
+        </div>
+        </div>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :メールアドレス, class: "form-label" %>
+        <div class="input-group">
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "email",  class: "form-control",  style: "padding-left: 50px;" %>
+        <div class="input-group-append">
+          <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+        </div>
+        </div>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :パスワード, class: "form-label" %>
+            <% if @minimum_password_length %>
+            <em>(<%= @minimum_password_length %> characters minimum)</em>
+            <% end %>
+        <div class="input-group">
+          <%= f.password_field :password, autocomplete: "new-password",  placeholder: "password", class: "form-control",  style: "padding-left: 50px;" %>
+        <div class="input-group-append">
+            <span class="input-group-text"><i class="fas fa-lock"></i></span>
+        </div>
+        </div>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :パスワードの確認, class: "form-label" %>
+        <div class="input-group">
+          <%= f.password_field :password_confirmation, autocomplete: "new-password",  placeholder: "password confirmation",  class: "form-control",  style: "padding-left: 50px;" %>
+        <div class="input-group-append">
+            <span class="input-group-text"><i class="fas fa-lock"></i></span>
+        </div>
+        </div>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :プロフィール画像, class: "form-label" %>
+          <div class="input-group">
+            <%= f.file_field :profile_image_id, class: "form-control" %>
           </div>
         </div>
-        
-        <div class="field">
-          <%= f.label :自己紹介, class: "label" %>
-          <div class="control has-icons-left">
-            <%= f.text_field :introduction, autofocus: true, autocomplete: "introduction", :placeholder => "自己紹介", class: "input" %>
-            <span class="icon is-small is-left">
-              <i class="fas fa-user"></i>
-            </span>
-          </p>
-        </div>
 
-        <div class="field">
-          <%= f.label :メールアドレス, class: "label" %>
-          <p class="control has-icons-left">
-            <%= f.email_field :email, autofocus: true, autocomplete: "email", :placeholder => "email", class: "input" %>
-            <span class="icon is-small is-left">
-              <i class="fas fa-envelope"></i>
-            </span>
-          </p>
-        </div>
-
-        <div class="field">
-          <%= f.label :パスワード, class: "label" %>
-          <% if @minimum_password_length %>
-          <em>(<%= @minimum_password_length %> characters minimum)</em>
-          <% end %>
-          <p class="control has-icons-left">
-          <%= f.password_field :password, autocomplete: "new-password", :placeholder => "password", class: "input" %>
-            <span class="icon is-small is-left">
-              <i class="fas fa-lock"></i>
-            </span>
-          </p>
-        </div>
-
-        <div class="field">
-          <%= f.label :パスワードの確認, class: "label" %>
-          <p class="control has-icons-left">
-            <%= f.password_field :password_confirmation, autocomplete: "new-password", :placeholder => "password confirmation", class: "input" %>
-            <span class="icon is-small is-left">
-              <i class="fas fa-lock"></i>
-            </span>
-          </p>
-        </div>
-
-        <div class="field">
-          <%= f.label :プロフィール画像, class: "label" %>
-          <div class="control">
-            <%= f.file_field :profile_image_id, class: "input" %>
-          </div>
-        </div>
-
-        <div class="actions">
-          <%= f.submit "Sign up", class: "button is-success" %>
+        <div class="mb-3">
+          <%= f.submit "Sign up", class: "btn" %>
         </div>
         <% end %>
 

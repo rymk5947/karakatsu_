@@ -1,50 +1,46 @@
-<section class="hero is-success">
-  <div class="hero-body">
-    <div class="container">
-      <h1 class="title">
-        マイページ
-      </h1>
-    </div>
+<div class="jumbotron" style="background-color: #3eb370; margin-bottom: 40px;">
+  <div class="container">
+    <h3 class="text-white" style="display: flex; align-items: center; height: 120px;">マイページ</h3>
   </div>
-</section>
-
+</div>
 
 <section class="section">
   <div class="container">
-    <div class="columns is-flex-direction-column is-centered">
-      <div class="column is-8">
-        <div class="is-centered">
-          <div class="column is-4">
-            <figure class="image is-128x128" style="margin-left: auto; margin-right: auto;">
-              <%= image_tag url_for(@user.profile_image.variant(format: 'png')), fallback: "images.png", class: "is-rounded" %>
-            </figure>
-          </div>
-          <div class="column is-8">
-            <table class="table is-fullwidth custom-margin-top">
-              <tr>
-                <td class="is-size-4">
-                  <strong><%= @user.name %></strong>
-                  <strong><%= @user.age %></strong>
-                  <strong><%= @user.sex %></strong>
-                </td>
-              </tr>
-            </table>
-            <% if @user.id == current_user.id %>
-            <table class="table is-fullwidth">
-              <tr>
-                <td class="is-size-4">
-                  <%= @user.email %>
-                </td>
-                <td>
-                    <%= link_to "編集", edit_user_path(@user), class: "button is-primary" %>
-                </td>
-              </tr>
-            </table>
-            <% end %>
-          </div>
-        </div>
-      </div>
+    <div class="columns">
+      <figure class="image">
+        <strong class="element-spacing">
+        <%= image_tag url_for(@user.profile_image.variant(format: 'png')), fallback: "images.png", class: "is-rounded", size: "128x128" %>
+        </strong>
+        <strong class="element-spacing"><%= @user.name %></strong>
+        <strong class="element-spacing"><%= @user.age %>歳</strong>
+        <strong class="element-spacing"><%= case @user.sex when "male" then "男性" when "female" then "女性" when "other" then "その他" when "no_selected" then "選択しない" end %></strong>
+        <strong class="element-spacing">
+          <% if @user.id == current_user.id %>
+            <%= @user.email %>
+        </strong>
+        <strong class="element-spacing">
+          <%= link_to "編集", edit_user_path(@user), class: "button is-primary" %>
+        </strong>
+        <% end %>
+      </figure>
     </div>
   </div>
 </section>
 
+<section class="section">
+  <table>
+    <tr>
+      <td>
+        <% if user_signed_in? && current_user != @user %>
+          <% if current_user.active_relationships.exists?(target_user_id: @user.id) %>
+            <%= link_to 'unfollow', [@user, :follow], method: :delete %>
+          <% else %>
+            <%= link_to 'follow', [@user, :follow], method: :post %>
+          <% end %>
+        <% end %>
+        </td>
+          <td> <%= link_to 'followings', [@user, :followings] %></td>
+          <td><%= link_to 'followers', [@user, :followers] %></td>
+    </tr>
+  </table>
+</section>

@@ -2,6 +2,9 @@ class UsersController < ApplicationController
   before_action :authenticate_user!, except: [:index]
   def index
     @users = User.all
+    if params[:name].present?
+      @users = User.search_for(params[:user], params[:method])
+    end
   end
 
   def show

@@ -2,6 +2,19 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
-.custom-margin-top {
-  margin-top: 20px; /* 好きな余白の値を指定してください */
+.element-spacing {
+  margin-right: 50px; /* 適切な間隔に調整してください */
+}
+
+.element-spacing:last-child {
+  margin-right: 0; /* 最後の要素の右側の余白を削除 */
+}
+
+.columns {
+  display: flex;
+  justify-content: center;
+}
+
+.label-spacing {
+  margin-right: 10px;
 }

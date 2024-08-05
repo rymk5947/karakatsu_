@@ -13,23 +13,46 @@
  *= require_tree .
  *= require_self
  */
-@import "bulma";
+@import 'bootstrap';
 
-.notification:not(:last-child){
-	margin-bottom: 0;
+.navbar {
+  background-color: #fdcd00;
+  border-bottom: 1px solid rgba(0, 0, 0, .0975);
+  height: 100px;
+  &__brand {
+    height: 100px;
+    width: 176px;
+    background-size: 114px;
+    margin-right: 470px;
+  }
+  &__mainLogo {
+    background-repeat: no-repeat;
+    background-image: url("~logo.png");
+  }
+  &-nav {
+    & > li {
+      margin-left: 20px;
+      &:first-child {
+        margin-left: 0;
+      }
+      .commonNavIcon {
+        height: 24px;
+        width: 24px;
+        background-size: 22px !important;
+        background-repeat: no-repeat;
+      }
+      .profile-icon {
+        background-image: url("~parts3.png");
+      }
+    }
+  }
 }
 
-.profile_image {
- border-radius: 50%;
+.btn {
+  background-color: #f9f7ef;
+  border: 1px solid white;
 }
 
-.main-image {
-	height: 980px;
-	background-image: url(karaoke1.png);
-	background-repeat: no-repeat;
-	background-size: contain;
-}
-
-body {
-  background-image: image-url("hoge.jpg");
+.btn:hover {
+  background-color: white;
 }
