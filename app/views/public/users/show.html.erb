@@ -1,0 +1,59 @@
+<div class="jumbotron" style="background-color: #3eb370; margin-bottom: 40px;">
+  <div class="container">
+    <h3 class="text-white" style="display: flex; align-items: center; height: 120px;">マイページ</h3>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+    <div class="columns">
+      <figure class="image">
+        <strong class="element-spacing">
+          <% if @user.profile_image.attached? %>
+            <%= image_tag @user.profile_image.variant(resize_to_fit: [150, 150]), class: "is-rounded", width: 150, height: 150 %>
+          <% else %>
+            <%= image_tag "default-image.jpg", class: "is-rounded", width: 150, height: 150 %>
+          <% end %>
+        </strong>
+        <strong class="element-spacing"><%= @user.name %></strong>
+        <strong class="element-spacing"><%= @user.age %>歳</strong>
+        <strong class="element-spacing"><%= case @user.sex when "male" then "男性" when "female" then "女性" when "other" then "その他" when "no_selected" then "選択しない" end %></strong>
+        <strong class="element-spacing">
+          <% if @user.id == current_user.id %>
+            <%= @user.email %>
+          <% end %>
+        </strong>
+        <strong class="element-spacing">
+          <% if @user.id == current_user.id %>
+            <%= link_to "編集", edit_user_path(@user), class: "button is-primary" %>
+          <% end %>
+        </strong>
+        <strong class="element-spacing">
+          <% if user_signed_in? && @user == current_user %>
+          <% unless @user.email == "test@example.com" then %>
+             <%= link_to "退会",user_path(current_user.id), class: "destroy-user", method: :delete, "data-confirm" => "本当に退会しますか？" %>
+          <% end %>
+          <% end %>
+        </strong>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <table>
+    <tr>
+      <td>
+        <% if user_signed_in? && current_user != @user %>
+          <% if current_user.active_relationships.exists?(target_user_id: @user.id) %>
+            <%= link_to 'unfollow', [@user, :follow], method: :delete %>
+          <% else %>
+            <%= link_to 'follow', [@user, :follow], method: :post %>
+          <% end %>
+        <% end %>
+        </td>
+          <td> <%= link_to 'followings', [@user, :followings] %></td>
+          <td><%= link_to 'followers', [@user, :followers] %></td>
+    </tr>
+  </table>
+</section>

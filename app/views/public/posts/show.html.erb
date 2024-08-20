@@ -1,0 +1,140 @@
+<div class="jumbotron" style="background-color: #3eb370; margin-bottom: 40px;">
+  <div class="container">
+    <h3 class="text-white" style="display: flex; align-items: center; height: 120px;">投稿詳細</h3>
+  </div>
+</div>
+
+<section class="section">
+  <div class="container">
+    <div class="row">
+      <div class="col-7">
+        <div class="card" style="width: 600px; margin-bottom: 30px;">
+          <div class="card-body">
+            <div class="media" style="margin-bottom: 20px;">
+              <%= link_to user_path(@post.user) do %>
+                <% if @post.user.present? && @post.user.profile_image.attached? %>
+                  <%= image_tag url_for(@post.user.profile_image.variant(resize_to_fit: [70, 70])), fallback: "no_image.jpg", class: "is-rounded", style: "margin-right: 20px;", width: 70, height: 70 %>
+                <% else %>
+                  <%= image_tag "no_image.jpg", class: "is-rounded", style: "margin-right: 20px;", width: 70, height: 70 %>
+                <% end %>
+              <% end %>
+              <%= link_to @post.user.name, user_path(@post.user) %>
+            </div>
+
+            <div class="content">
+              <table>
+                <tr>
+                  <th>好きなジャンル :</th>
+                  <td><%= Post.genres.invert[@post.genre.to_s] %></td>
+                </tr>
+              </table>
+            </div>
+
+            <div class="content">
+              <%= simple_format @post.message %>
+            </div>
+
+            <figure class="figure">
+              <% if @post.photo.present? %>
+                <%= link_to post_path(@post) do %>
+                  <%= image_tag @post.photo, alt: "投稿写真", class: "figure-img img-fluid" %>
+                <% end %>
+              <% end %>
+            </figure>
+
+            <div class="content">
+              <% if current_user.already_favorited?(@post) %>
+                <%= link_to post_favorites_path(@post), method: :delete, class: 'text-decoration-none' do %>
+                  <i class="fas fa-heart"></i>
+                <% end %>
+                <%= @post.favorites.count %>
+              <% else %>
+                <%= link_to post_favorites_path(@post), method: :post, class: 'text-decoration-none' do %>
+                  <i class="far fa-heart"></i>
+                <% end %>
+                <%= @post.favorites.count %>
+              <% end %>
+            </div>
+
+             <div>
+            <%= link_to 'コメントを見る', "#", class: "", "data-bs-toggle": "modal","data-bs-target": "#staticBackdrop_#{ @post.id }" %>
+            <div id="comment-container"></div>
+
+              <!-- Button trigger modal -->
+
+
+            <!-- Modal -->
+            <div class="modal fade" id="staticBackdrop_<%= @post.id %>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-scrollable">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">この投稿へのコメント</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <% post_comments = @post.post_comments %>
+                    <% if post_comments.any? %>
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <th>user</th>
+                            <th>comment</th>
+                            <th>date</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <% post_comments.each do |post_comment| %>
+                            <tr>
+                              <td><%= post_comment.user.name %></td>
+                              <td><%= post_comment.comment %></td>
+                              <td><%= l post_comment.created_at, format: :short %></td>
+                            </tr>
+                          <% end %>
+                        </tbody>
+                      </table>
+                    <% else %>
+                      <p>コメントはまだありません。</p>
+                    <% end %>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <%= form_with model: [@post, @post_comment], url: post_post_comments_path(@post) do |f| %>
+              <%= f.text_area :comment, rows: '2', cols: '50', placeholder: "コメントをここに" %>
+              <%= f.submit "コメントする", class: "btn" %>
+            <% end %>
+          </div>
+
+
+            <div class="content">
+              <small class="text-muted"><%=@post.updated_at.strftime("%Y-%m-%d %H:%M") %></small>更新
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-5">
+        <div class="card">
+          <article class="panel bg-link ms-4 mt-3 mb-3">
+              <p class="panel-heading bg-blue mb-0">By <%= @post.user.name %></p>
+              <p class="control mt-0"><%= @post.user.introduction %></p>
+
+            <%= link_to user_path(@post.user), class: "panel-body" do %>
+              <span class="panel-icon">
+                <i class="fa fa-user" aria-hidden="true"></i>
+              </span>
+              <%= @post.user.name %> さんのページへ
+            <% end %>
+          </article>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

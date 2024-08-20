@@ -1,0 +1,87 @@
+<div class="jumbotron" style="background-color: #90EE90; margin-bottom: 40px;">
+  <div class="container">
+    <h3 class="text-white" style="display: flex; align-items: center; height: 120px;">新規登録</h3>
+  </div>
+</div>
+
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-5">
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "needs-validation", novalidate: true }) do |f| %>
+        <%= render "public/shared/error_messages", resource: resource %>
+
+        <div class="mb-3">
+          <%= f.label :名前, class: "form-label" %>
+          <div class="input-group">
+            <span class="input-group-text br_none"><i class="fas fa-user"></i></span>
+            <%= f.text_field :name, autofocus: true, autocomplete: "name", placeholder: "name", class: "form-control bl_none",  required: true %>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :年齢, class: "form-label" %>
+          <div class="input-group">
+            <span class="input-group-text br_none"><i class="fas fa-user"></i></span>
+            <%= f.text_field :age, autofocus: true, autocomplete: "age", placeholder: "age", class: "form-control bl_none" %>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :性別, class: "form-label" %>
+          <div class="input-group">
+            <span class="input-group-text br_none"><i class="fa-solid fa-person-half-dress"></i></span>
+            <%= f.select :sex, [['male', 'male'], ['female', 'female'], ['other', 'other'], ['no_selected', 'not_selected']], {}, { class: "form-select bl_none" } %>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :自己紹介, class: "form-label" %>
+          <div class="input-group">
+            <span class="input-group-text br_none"><i class="fas fa-user"></i></span>
+            <%= f.text_area :introduction, rows: 4, autofocus: true, autocomplete: "introduction", placeholder: "introduction", class: "form-control bl_none" %>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :メールアドレス, class: "form-label" %>
+          <div class="input-group">
+            <span class="input-group-text br_none"><i class="fas fa-envelope"></i></span>
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "email",  class: "form-control bl_none" %>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :パスワード, class: "form-label" %>
+            <% if @minimum_password_length %>
+            <em>(<%= @minimum_password_length %> characters minimum)</em>
+            <% end %>
+          <div class="input-group">
+            <span class="input-group-text br_none"><i class="fas fa-lock"></i></span>
+            <%= f.password_field :password, autocomplete: "new-password",  placeholder: "password", class: "form-control bl_none" %>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :パスワードの確認, class: "form-label" %>
+          <div class="input-group">
+            <span class="input-group-text br_none"><i class="fas fa-lock"></i></span>
+            <%= f.password_field :password_confirmation, autocomplete: "new-password",  placeholder: "password confirmation",  class: "form-control bl_none" %>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :プロフィール画像, class: "form-label" %>
+          <%= f.file_field :profile_image, class: "form-control" %>
+        </div>
+
+        <div class="mb-3 mt-4">
+          <%= f.submit "Sign up", class: "btn btn-outline-secondary w-100" %>
+        </div>
+        <% end %>
+
+        <%= render "public/shared/links" %>
+
+      </div>
+    </div>
+  </div>
+

@@ -1,24 +1,18 @@
 class Post < ApplicationRecord
   enum genres: {
-    "J-POP": "0", 
+    "J-POP": "0",
     "アニソン": "1",
     "K-POP": "2",
     "ボーカロイド": "3",
-    "演歌": "4", 
-    "洋楽": "5", 
+    "演歌": "4",
+    "洋楽": "5",
     "その他": "6"
   }
 
   has_one_attached :photo
 
   belongs_to :user
-
-  has_many :likes, -> { order(created_at: :desc) }, dependent: :destroy
-
-  def liked_by(user)
-    return false if user.nil?
-    likes.exists?(user_id: user.id)
-  end
+  has_many :favorites, dependent: :destroy
 
   has_many :post_comments, dependent: :destroy
 

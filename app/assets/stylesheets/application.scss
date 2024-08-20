@@ -13,39 +13,11 @@
  *= require_tree .
  *= require_self
  */
-@import 'bootstrap';
+// @import 'bootstrap';
 
 .navbar {
   background-color: #fdcd00;
   border-bottom: 1px solid rgba(0, 0, 0, .0975);
-  height: 100px;
-  &__brand {
-    height: 100px;
-    width: 176px;
-    background-size: 114px;
-    margin-right: 470px;
-  }
-  &__mainLogo {
-    background-repeat: no-repeat;
-    background-image: url("~logo.png");
-  }
-  &-nav {
-    & > li {
-      margin-left: 20px;
-      &:first-child {
-        margin-left: 0;
-      }
-      .commonNavIcon {
-        height: 24px;
-        width: 24px;
-        background-size: 22px !important;
-        background-repeat: no-repeat;
-      }
-      .profile-icon {
-        background-image: url("~parts3.png");
-      }
-    }
-  }
 }
 
 .btn {
@@ -55,4 +27,11 @@
 
 .btn:hover {
   background-color: white;
+}
+
+.navbar-logo {
+  height: 90px;
+  width: 200px;
+  object-fit: cover;
+  object-position: 20% 40%;
 }

@@ -5,28 +5,15 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-        <script src="https://kit.fontawesome.com/0fed6ac93a.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/0fed6ac93a.js" crossorigin="anonymous"></script>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-
-<body>
-  <%= render 'partial/navbar' %>
-
-  <% if flash[:notice] %>
-    <div class="alert alert-info">
-      <%= flash[:notice] %>
-    </div>
-  <% end %>
-  <% if flash[:alert] %>
-    <div class="alert alert-danger">
-      <%= flash[:alert] %>
-    </div>
-  <% end %>
-
-<%= yield %>
-</body>
-
+  <body>
+    <%= render 'public/partial/navbar' %>
+    <%= render 'layouts/flash_messages' %>
+    <%= yield %>
+  </body>
 </html>

@@ -1,0 +1,8 @@
+<%- if controller_name != 'sessions' %>
+  <p>アカウントをお持ちですか？<%= link_to "Log in", new_session_path(resource_name) %><p>
+<% end %>
+
+<%- if devise_mapping.registerable? && controller_name != 'registrations' %>
+  <p>新規登録はお済みですか？<%= link_to "Sign up", new_registration_path(resource_name) %></p>
+<% end %>
+

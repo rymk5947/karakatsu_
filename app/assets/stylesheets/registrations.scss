@@ -7,8 +7,15 @@
 
 .input-group .input-group-text {
   pointer-events: none;
-  border: none;
   background-color: transparent;
+}
+
+.br_none {
+  border-right: none!important;
+}
+
+.bl_none {
+  border-left: none!important;
 }
 
 .form-control:focus::placeholder {

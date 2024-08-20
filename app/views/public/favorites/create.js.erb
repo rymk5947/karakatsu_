@@ -1,0 +1,4 @@
+$('#favorite-icon-post-<%= @post.id.to_s %>').
+  html('<%= link_to "いいねを取り消す", post_favorite_path(@post.id, @favorite), method: :DELETE, remote: true, class: "loved hide-text" %>');
+$('#favorite-text-post-<%= @post.id.to_s %>').
+  html('<%= j render "posts/favorite_text", { favorites: @post.favorites } %>');

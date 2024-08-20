@@ -1,0 +1,15 @@
+$(document).on('click', '#load-comments', function() {
+  var postId = '<%= @post.id %>';
+  $.ajax({
+    url: '/post_comments',
+    type: 'GET',
+    data: { post_id: postId },
+    dataType: 'html',
+    success: function(response) {
+      $('#comment-container').html(response);
+    },
+    error: function() {
+      alert('コメントの取得に失敗しました。');
+    }
+  });
+});

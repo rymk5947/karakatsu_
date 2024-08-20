@@ -28,3 +28,23 @@
   text-indent: 110%;
   white-space: nowrap;
 }
+
+.form-control-introduction {
+  height: 100px; /* 入力欄の幅を100%に設定 */
+}
+
+.table {
+
+  border-spacing: 0;
+  border-width: 2px; /* 上下のボーダーの横幅を2pxに設定 */
+}
+
+.table td,
+.table th {
+  border-style: solid; /* ボーダースタイルを実線に指定 */
+}
+
+//index.html.erb
+div.comment {
+  margin-top: 20px; /* 適宜値を変更してください */
+}
