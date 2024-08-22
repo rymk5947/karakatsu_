@@ -9,16 +9,23 @@ Rails.application.routes.draw do
       get "/users/sign_out", to: "devise/sessions#destroy"
     end
 
-    resources :users do
-      resource :follow, only: [:create, :destroy]
-      resources :followings, only: [:index]
-      resources :followers, only: [:index]
-    end
-
     resources :posts do
+      member do
+        get :favorites
+      end
       resources :post_comments, only: [:show, :index, :create, :destroy]
       resource :favorites, only: [:create, :destroy]
     end
+
+    resources :users do
+      resource :relationships, only: [:create, :destroy]
+        get :followings, on: :member
+        get :followers, on: :member
+    end
+
+    resources :users 
+     
+    
   end
 
   devise_for :admin, skip: [:registrations, :passwords], controllers: {

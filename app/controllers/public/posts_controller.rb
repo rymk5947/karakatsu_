@@ -10,6 +10,11 @@ class Public::PostsController < ApplicationController
     @post_comment = PostComment.new
   end
 
+  def favorites
+    @post = Post.find(params[:id])
+    @favorited_users = @post.favorited_users
+  end
+
   def show
     @post = Post.find(params[:id])
     @selected_genre = Post.find(params[:id]).genre

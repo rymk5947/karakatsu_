@@ -1,7 +1,7 @@
 class Public::UsersController < ApplicationController
-  before_action :authenticate_user!, only: [:edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:show, :edit, :update, :destroy]
   before_action :correct_user, only: [:edit, :update, :destroy]
-  
+
   def create
     user = User.new(user_params) # ストロングパラメーターを呼び出す
     if user.save# ユーザーを作成できた場合の処理
@@ -19,11 +19,19 @@ class Public::UsersController < ApplicationController
     @users = User.all
   end
 
+  def followings
+    user = User.find(params[:id])
+    @users = user.followings
+  end
+
+  def followers
+    user = User.find(params[:id])
+    @users = user.followers
+  end
+
+
   def edit
     @user = User.find(params[:id])
-    if @user != current_user
-      redirect_to user_path(current_user), alert: "不正なアクセスです。"
-    end
   end
 
   def update
@@ -54,7 +62,7 @@ class Public::UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:name, :age, :sex, :introduction, :email, :password, :password_confirmation, :profile_image)
   end
-  
+
   def correct_user
     @user = User.find_by_id(params[:id])
     redirect_to root_path unless current_user == @user

@@ -23,6 +23,7 @@
             <%= @user.email %>
           <% end %>
         </strong>
+
         <strong class="element-spacing">
           <% if @user.id == current_user.id %>
             <%= link_to "編集", edit_user_path(@user), class: "button is-primary" %>
@@ -35,25 +36,31 @@
           <% end %>
           <% end %>
         </strong>
+
+        <strong class="element-spacing">
+          <p class="text-small">
+            <%= link_to @user.followings.count, followings_user_path(@user) %> フォロー
+            <%= link_to @user.followers.count, followers_user_path(@user) %> フォロワー
+          </p>
+
+          <% if @user == current_user %>
+            <p class="lead text-muted">You're currently signed in as <%= current_user.email %></p>
+          <% else %>
+            <div class="d-flex align-items-center">
+            <% if @user.is_followed_by?(current_user) %>
+              <%= link_to user_relationships_path(@user), method: :delete, class: "btn btn-danger me-2" do %>
+              フォロー解除
+            <% end %>
+            <% else %>
+              <%= link_to user_relationships_path(@user), method: :post, class: "btn btn-primary me-2" do %>
+              フォロー
+            <% end %>
+          <% end %>
+            </div>
+          <% end %>
+        </strong>
       </figure>
     </div>
   </div>
 </section>
 
-<section class="section">
-  <table>
-    <tr>
-      <td>
-        <% if user_signed_in? && current_user != @user %>
-          <% if current_user.active_relationships.exists?(target_user_id: @user.id) %>
-            <%= link_to 'unfollow', [@user, :follow], method: :delete %>
-          <% else %>
-            <%= link_to 'follow', [@user, :follow], method: :post %>
-          <% end %>
-        <% end %>
-        </td>
-          <td> <%= link_to 'followings', [@user, :followings] %></td>
-          <td><%= link_to 'followers', [@user, :followers] %></td>
-    </tr>
-  </table>
-</section>

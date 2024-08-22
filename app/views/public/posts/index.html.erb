@@ -66,15 +66,12 @@
                 <i class="far fa-heart"></i>
               <% end %>
             <% end %>
-              <%= post.favorites.count %>
+              <%= link_to post.favorites.count, favorites_post_path(post) %>
           </div>
 
           <div>
             <%= link_to 'コメントを見る', "#", class: "", "data-bs-toggle": "modal","data-bs-target": "#staticBackdrop_#{ post.id }" %>
-            <div id="comment-container"></div>
-
-              <!-- Button trigger modal -->
-
+          </div>
 
             <!-- Modal -->
             <div class="modal fade" id="staticBackdrop_<%= post.id %>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">

@@ -1,3 +1,24 @@
 // Place all the styles related to the admin/application controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+.navbar {
+  background-color: #fdcd00;
+  border-bottom: 1px solid rgba(0, 0, 0, .0975);
+}
+
+.btn {
+  background-color: #f9f7ef;
+  border: 1px solid white;
+}
+
+.btn:hover {
+  background-color: white;
+}
+
+.navbar-logo {
+  height: 90px;
+  width: 200px;
+  object-fit: cover;
+  object-position: 20% 40%;
+}
