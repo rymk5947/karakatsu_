@@ -6,4 +6,5 @@ class Public::HomesController < ApplicationController
       @posts = Post.search_for(params[:message], params[:method])
     end
   end
+
 end

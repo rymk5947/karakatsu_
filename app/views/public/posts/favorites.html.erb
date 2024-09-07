@@ -5,13 +5,15 @@
       <table class="table text-center">
         <thead>
           <tr>
-            <th>profile image</th>
-            <th>Name</th>
+            <th>Profile image</th>
+            <th>
+              <div style="margin-left: -350px;">Name</div>
+            </th>
           </tr>
         </thead>
         <tbody>
           <% @favorited_users.each do |favorited_user| %>
-            <tr>
+            <tr class="table-row">
               <td>
                 <% if favorited_user.profile_image.attached? %>
                   <%= image_tag favorited_user.profile_image.variant(resize_to_fit: [50, 50]), class: "is-rounded", width: 50, height: 50 %>
@@ -20,9 +22,11 @@
                 <% end %>
               </td>
               <td>
-                <%= link_to user_path(favorited_user) do %>
-                  <%= favorited_user.name %>
-                <% end %>
+                <div class="cell-content" style="margin-top: 10px; margin-bottom: 10px; margin-left: -350px;">
+                  <%= link_to user_path(favorited_user) do %>
+                    <%= favorited_user.name %>
+                  <% end %>
+                </div>
               </td>
             </tr>
           <% end %>

@@ -1,6 +1,7 @@
 class Public::UsersController < ApplicationController
   before_action :authenticate_user!, only: [:show, :edit, :update, :destroy]
   before_action :correct_user, only: [:edit, :update, :destroy]
+  before_action :ensure_guest_user, only: [:edit]
 
   def create
     user = User.new(user_params) # ストロングパラメーターを呼び出す
@@ -17,6 +18,9 @@ class Public::UsersController < ApplicationController
 
   def index
     @users = User.all
+    if params[:name].present?
+      @users = User.search_for(params[:name], params[:method])
+    end
   end
 
   def followings
@@ -58,6 +62,12 @@ class Public::UsersController < ApplicationController
     #@user.profile_image.purge # 画像を削除する
   #end
 
+  def guest_sign_in
+    user = User.guest
+    sign_in user
+    redirect_to posts_path, notice: "guestuserでログインしました。"
+  end
+
   private
   def user_params
     params.require(:user).permit(:name, :age, :sex, :introduction, :email, :password, :password_confirmation, :profile_image)
@@ -66,5 +76,12 @@ class Public::UsersController < ApplicationController
   def correct_user
     @user = User.find_by_id(params[:id])
     redirect_to root_path unless current_user == @user
+  end
+
+  def ensure_guest_user
+    @user = User.find(params[:id])
+    if @user.email == "guest@example.com"
+      redirect_to user_path(current_user) , notice: "ゲストユーザーはプロフィール編集画面へ遷移できません。"
+    end
   end
 end

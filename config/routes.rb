@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
     devise_scope :user do
       get "/users/sign_out", to: "devise/sessions#destroy"
+      post "users/guest_sign_in", to: "sessions#guest_sign_in"
     end
 
     resources :posts do
@@ -23,9 +24,11 @@ Rails.application.routes.draw do
         get :followers, on: :member
     end
 
-    resources :users 
-     
-    
+    resources :users
+
+    delete '/posts/:post_id/post_comments', to: 'post_comments#destroy', as: 'post_comments'
+
+
   end
 
   devise_for :admin, skip: [:registrations, :passwords], controllers: {
@@ -37,6 +40,10 @@ Rails.application.routes.draw do
     get "dashboards", to: "dashboards#index"
     resources :users, only: [:destroy]
   end
+
+  get '/users/:id/posts', to: 'public/posts#user_posts', as: 'user_posts'
+
+
 
   root to: "public/homes#index"
 end

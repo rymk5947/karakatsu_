@@ -6,7 +6,9 @@
         <thead>
           <tr>
             <th>profile image</th>
-            <th>Name</th>
+            <th>
+              <div style="margin-left: -100px;">Name</div>
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -20,11 +22,14 @@
                 <% end %>
               </td>
               <td>
-                <%= link_to user_path(user) do %>
-                  <%= user.name %>
-                <% end %>
+                <div class="cell-content" style="margin-top: 13px; margin-bottom: 10px; margin-left: -100px;">
+                  <%= link_to user_path(user) do %>
+                    <%= user.name %>
+                  <% end %>
+                </div>
               </td>
               <td>
+                <div class="cell-content" style="margin-top: 10px; margin-bottom: 10px;">
                 <% if user != current_user %>
                   <% if user.is_followed_by?(current_user) %>
                     <%=link_to user_relationships_path(user), method: :delete do %>
@@ -36,6 +41,7 @@
                     <% end %>
                   <% end %>
                 <% end %>
+                </div>
               </td>
             </tr>
           <% end %>
@@ -44,3 +50,7 @@
     </div>
   </div>
 </div>
+
+
+
+

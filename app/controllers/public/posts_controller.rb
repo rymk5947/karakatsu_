@@ -8,6 +8,7 @@ class Public::PostsController < ApplicationController
       @posts = Post.search_for(params[:message], params[:method])
     end
     @post_comment = PostComment.new
+    @post = @posts.first
   end
 
   def favorites
@@ -53,6 +54,12 @@ class Public::PostsController < ApplicationController
     @post.destroy
     redirect_to user_path(@post.user), notice: "投稿を削除しました。"
   end
+
+  def user_posts
+    @user = User.find(params[:id])
+    @posts = @user.posts
+  end
+
 
   private
 

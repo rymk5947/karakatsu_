@@ -15,7 +15,7 @@
                 <% if @post.user.present? && @post.user.profile_image.attached? %>
                   <%= image_tag url_for(@post.user.profile_image.variant(resize_to_fit: [70, 70])), fallback: "no_image.jpg", class: "is-rounded", style: "margin-right: 20px;", width: 70, height: 70 %>
                 <% else %>
-                  <%= image_tag "no_image.jpg", class: "is-rounded", style: "margin-right: 20px;", width: 70, height: 70 %>
+                  <%= image_tag "default-image.jpg", class: "is-rounded", style: "margin-right: 20px;", width: 70, height: 70 %>
                 <% end %>
               <% end %>
               <%= link_to @post.user.name, user_path(@post.user) %>
@@ -88,6 +88,11 @@
                               <td><%= post_comment.user.name %></td>
                               <td><%= post_comment.comment %></td>
                               <td><%= l post_comment.created_at, format: :short %></td>
+                              <td>
+                                <% if current_user == post_comment.user %>
+                                  <%= button_to "削除", post_post_comment_path(post_id: @post.id, id: post_comment.id), method: :delete, data: { confirm: "コメントを削除してもよろしいですか？" }, class: "btn btn-danger btn-sm" %>
+                                <% end %>
+                              </td>
                             </tr>
                           <% end %>
                         </tbody>
@@ -111,6 +116,9 @@
             <% end %>
           </div>
 
+          <div>
+            <%= link_to '編集画面へ', edit_post_path(@post), class: "btn btn-light" %>
+          </div>
 
             <div class="content">
               <small class="text-muted"><%=@post.updated_at.strftime("%Y-%m-%d %H:%M") %></small>更新

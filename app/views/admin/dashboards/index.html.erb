@@ -4,6 +4,31 @@
   </div>
 </div>
 
-<section class="section">
- 
-</section>
+<div class="container">
+  <div class="columns">
+    <% @users.each do |user| %>
+      <figure class="image">
+        <strong class="element-spacing">
+          <% if user.profile_image.attached? %>
+            <%= image_tag user.profile_image.variant(resize_to_fit: [150, 150]), class: "is-rounded", width: 150, height: 150 %>
+          <% else %>
+            <%= image_tag "default-image.jpg", class: "is-rounded", width: 150, height: 150 %>
+          <% end %>
+        </strong>
+        <strong class="element-spacing"><%= user.name %></strong>
+        <strong class="element-spacing"><%= user.age %>歳</strong>
+        <strong class="element-spacing">
+          <%= case user.sex when "male" then "男性" when "female" then "女性" when "other" then "その他" when "no_selected" then "選択しない" end %>
+        </strong>
+        <strong class="element-spacing">
+          <%= link_to "#{user.name}さんの投稿", user_posts_path(user) %>
+        </strong>
+        <strong class="element-spacing">
+          <%= link_to "退会", admin_user_path(user), class: "destroy-user", method: :delete, "data-confirm" => "本当に退会させますか？" %>
+        </strong>
+      </figure>
+    <% end %>
+
+    </figure>
+  </div>
+</div>

@@ -29,15 +29,15 @@ def already_favorited?(post)
 end
 
 def self.search_for(content, method)
-if content.present?
-if method == 'partial'
-User.where('name LIKE ?', "#{content.to_s}%")
-else
-User.where('name LIKE ?', "#{content.to_s}%")
-end
-else
-User.none
-end
+  if method == "perfect"
+    where(name: content)
+  elsif method == "forward"
+    where("name LIKE ?", "#{content}%")
+  elsif method == "backward"
+    where("name LIKE ?", "%#{content}")
+  else
+    where("name LIKE ?", "%#{content}%")
+  end
 end
 
 # フォローする側から中間テーブルへのアソシエーション
@@ -54,5 +54,18 @@ has_many :followers, through: :reverse_of_relationships, source: :following
 def is_followed_by?(user)
   reverse_of_relationships.find_by(following_id: user).present?
 end
+
+GUEST_USER_EMAIL = "guest@example.com"
+
+  def self.guest
+    find_or_create_by!(email: GUEST_USER_EMAIL) do |user|
+      user.password = SecureRandom.urlsafe_base64
+      user.name = "guestuser"
+    end
+  end
+
+  def guest_user?
+    email == GUEST_USER_EMAIL
+  end
 
 end

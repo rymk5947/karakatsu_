@@ -1,29 +1,19 @@
-<section class="section">
-  <article class="media">
-    <div class="media-content">
-      <div class="content has-text-centered">
-        <p>
-          <strong class="is-size-1" style="font-family: cursive;">カラ活</strong>
-        </p>
-      </div>
-      <div class="columns is-centered">
-        <div class="column is-5">
-          <br>
-          <%= link_to "ログイン", new_user_session_path, class: "button is-warning is-fullwidth" %>
-          <br>
-          <%= link_to "新規登録", new_user_registration_path, class: "button is-warning is-fullwidth" %>
-        </div>
-      </div>
-    </div>
-  </article>
-  <br>
-  <div class="columns is-centered">
-    <div class="column">
-      <figure>
-        <div class="main-image"></div>
-      </figure>
-    </div>
+<div style="position: relative; display: inline-block; text-align: center;">
+  <%= image_tag("名称未設定のデザイン.png", width: 1280, height: 854, style: "display: block; margin: 0 auto;") %>
+  <div style="position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%);">
+     <%= link_to "ゲストログイン（閲覧用）", users_guest_sign_in_path, class: "btn btn-secondary btn-sm btn-block mb-3 sign_in", method: :post %>
   </div>
-</section>
-
-<%= link_to "仮のボタンです", "#", class: "btn btn-primary" %>
+  <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+    <a href="<%= new_user_session_path %>" class="btn btn-warning btn-lg btn-block" style="width: 700px;">
+      ログイン
+    </a>
+  </div>
+  <div style="position: absolute; top: 60%; left: 50%; transform: translate(-50%, -50%);">
+    <a href="<%= new_user_registration_path %>" class="btn btn-warning btn-lg btn-block" style="width: 700px;">
+      新規登録
+    </a>
+  </div>
+  <div style="position: absolute; bottom: 30%; left: 50%; transform: translateX(-50%);">
+    <a>管理者ログインはこちらです <%= link_to "Log in", admin_session_path %> </a>
+  </div>
+</div>
