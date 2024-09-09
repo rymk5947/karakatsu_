@@ -7,6 +7,7 @@
 <div class="container">
   <div class="columns">
     <% @users.each do |user| %>
+      <% if user.email != "guest@example.com" %>
       <figure class="image">
         <strong class="element-spacing">
           <% if user.profile_image.attached? %>
@@ -30,5 +31,6 @@
     <% end %>
 
     </figure>
+    <% end %>
   </div>
 </div>

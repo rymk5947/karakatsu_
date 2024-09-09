@@ -10,7 +10,7 @@
       <div class="col-7">
         <div class="card" style="width: 600px; margin-bottom: 30px;">
           <div class="card-body">
-            <div class="media" style="margin-bottom: 20px;">
+             <div class="media mb-3">
               <%= link_to user_path(@post.user) do %>
                 <% if @post.user.present? && @post.user.profile_image.attached? %>
                   <%= image_tag url_for(@post.user.profile_image.variant(resize_to_fit: [70, 70])), fallback: "no_image.jpg", class: "is-rounded", style: "margin-right: 20px;", width: 70, height: 70 %>
@@ -21,7 +21,7 @@
               <%= link_to @post.user.name, user_path(@post.user) %>
             </div>
 
-            <div class="content">
+            <div class="mb-3">
               <table>
                 <tr>
                   <th>好きなジャンル :</th>
@@ -30,19 +30,21 @@
               </table>
             </div>
 
-            <div class="content">
+            <div class="mb-3">
               <%= simple_format @post.message %>
             </div>
 
-            <figure class="figure">
-              <% if @post.photo.present? %>
-                <%= link_to post_path(@post) do %>
-                  <%= image_tag @post.photo, alt: "投稿写真", class: "figure-img img-fluid" %>
+            <div class="mb-3">
+              <figure class="figure">
+                <% if @post.photo.present? %>
+                  <%= link_to post_path(@post) do %>
+                    <%= image_tag @post.photo, alt: "投稿写真", class: "figure-img img-fluid" %>
+                  <% end %>
                 <% end %>
-              <% end %>
-            </figure>
+              </figure>
+            </div>
 
-            <div class="content">
+            <div>
               <% if current_user.already_favorited?(@post) %>
                 <%= link_to post_favorites_path(@post), method: :delete, class: 'text-decoration-none' do %>
                   <i class="fas fa-heart"></i>
@@ -54,10 +56,9 @@
                 <% end %>
                 <%= @post.favorites.count %>
               <% end %>
-            </div>
 
-             <div>
-            <%= link_to 'コメントを見る', "#", class: "", "data-bs-toggle": "modal","data-bs-target": "#staticBackdrop_#{ @post.id }" %>
+
+              <%= link_to 'コメントを見る', "#", class: "m-3", "data-bs-toggle": "modal","data-bs-target": "#staticBackdrop_#{ @post.id }" %>
             <div id="comment-container"></div>
 
               <!-- Button trigger modal -->
@@ -109,23 +110,24 @@
             </div>
           </div>
 
-          <div>
+          <div class="mb-3 mt-3">
             <%= form_with model: [@post, @post_comment], url: post_post_comments_path(@post) do |f| %>
               <%= f.text_area :comment, rows: '2', cols: '50', placeholder: "コメントをここに" %>
               <%= f.submit "コメントする", class: "btn" %>
             <% end %>
           </div>
 
-          <div>
-            <%= link_to '編集画面へ', edit_post_path(@post), class: "btn btn-light" %>
+          <div class="mb-3">
+            <%= link_to '編集画面へ', edit_post_path(@post), class: "btn btn-secondary" %>
+            <%= link_to '投稿一覧へ', posts_path, class: "btn btn-secondary" %>
           </div>
 
-            <div class="content">
-              <small class="text-muted"><%=@post.updated_at.strftime("%Y-%m-%d %H:%M") %></small>更新
-            </div>
+          <div class="mb-3">
+            <small class="text-muted"><%=@post.updated_at.strftime("%Y-%m-%d %H:%M") %></small>更新
           </div>
         </div>
       </div>
+    </div>
 
       <div class="col-5">
         <div class="card">

@@ -57,15 +57,15 @@
             <%= f.label :profile_image, "プロフィール画像の変更", class: "label-spacing" %>
             <%= f.file_field :profile_image, class: "form-control-file" %>
           <br>
-            <%= f.label :profile_image, "画像を削除しますか？", class: "label-spacing" %>
+            <%= f.label :profile_image, "画像を削除しますか？", class: "mt-4 label-spacing" %>
             <% if @user.profile_image.attached? %>
               <%= f.submit "削除する", onclick: "return dataConfirm()" %>
             <% else %>
-              <%= image_tag "default-image.jpg", class: "is-rounded", width: 150, height: 150 %>
+              <%= image_tag "default-image.jpg", class: "is-rounded", width: 70, height: 70 %>
             <% end %>
           </div>
 
-          <%= f.submit "更新", class: "btn btn-light" %>
+          <%= f.submit "更新", class: "btn btn-secondary" %>
         <% end %>
       </div>
     </div>

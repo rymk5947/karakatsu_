@@ -4,7 +4,7 @@
   </div>
 </div>
 
-  <div class="row">
+  <div class="me-2">
     <%= form_tag posts_path, method: :get, class: "form-inline" do %>
       <div class="d-flex" style="justify-content: flex-end; margin-bottom: 20px;">
         <%= text_field_tag :message, params[:message], class: "form-control mr-2", style: "width: 150px;" %>
@@ -19,7 +19,7 @@
     <% @posts.each do |post| %>
       <div class="card" style="width: 600px; margin-bottom: 30px;">
         <div class="card-body">
-          <div class="media mb-3 ms-3">
+          <div class="media mb-3">
             <%= link_to user_path(post.user) do %>
               <% if post.user.present? && post.user.profile_image.attached? %>
                 <%= image_tag url_for(post.user.profile_image.variant(resize_to_fit: [70, 70])), fallback: "no_image.jpg", class: "is-rounded", style: "margin-right: 20px;", width: 70, height: 70 %>
@@ -31,7 +31,7 @@
             <%= link_to post.user.name, user_path(post.user) %>
           </div>
 
-          <div class="mb-3 ms-3">
+          <div class="mb-3">
             <table>
               <tr>
                 <th>好きなジャンル :</th>
@@ -40,11 +40,11 @@
             </table>
           </div>
 
-          <div class="mb-3 ms-3">
+          <div class="mb-3">
             <%= simple_format post.message %>
           </div>
 
-          <div class="mb-3 ms-3">
+          <div class="mb-3">
             <figure class="figure">
               <% if post.photo.attached? %>
                 <%= link_to post_path(post) do %>
@@ -54,7 +54,7 @@
             </figure>
           </div>
 
-          <div class="mb-3 ms-3">
+          <div>
             <% if current_user && current_user.already_favorited?(post) %>
               <%= link_to post_favorites_path(post), method: :delete, class: 'text-decoration-none' do %>
                 <i class="fas fa-heart"></i>
@@ -69,10 +69,8 @@
               <% end %>
             <% end %>
               <%= link_to post.favorites.count, favorites_post_path(post) %>
-          </div>
 
-          <div class="cell-content" style="margin-top: 30px;">
-            <%= link_to 'コメントを見る', "#", class: "", "data-bs-toggle": "modal","data-bs-target": "#staticBackdrop_#{ post.id }" %>
+            <%= link_to 'コメントを見る', "#", class: "m-3", "data-bs-toggle": "modal","data-bs-target": "#staticBackdrop_#{ post.id }" %>
           </div>
 
             <!-- Modal -->
@@ -136,10 +134,10 @@
           </div>
 
           <div class="ms-3 mt-3">
-            <%= link_to '詳細画面へ', post_path(post), class: "btn btn-light" %>
+            <%= link_to '詳細画面へ', post_path(post), class: "btn btn-secondary" %>
           </div>
 
-          <div class="mt-3">
+          <div class="mt-3 ms-3 mb-3">
             <small class="text-muted"><%= post.updated_at.strftime("%Y-%m-%d %H:%M") %></small>更新
           </div>
 
