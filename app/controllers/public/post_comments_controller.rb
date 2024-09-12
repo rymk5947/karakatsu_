@@ -8,7 +8,7 @@ class Public::PostCommentsController < ApplicationController
     @post_comment = post.post_comments.build
 
     if comment.save
-      redirect_to post_path(@post_comment.post)
+      redirect_to posts_path(@post_comment.post)
     else
       flash.now[:alert] = "コメントの保存に失敗しました"
       @comments = post.post_comments
@@ -23,12 +23,13 @@ class Public::PostCommentsController < ApplicationController
     @post_comment = PostComment.new
     redirect_to posts_path(@post)
   end
-  
+
   def show
     @post = Post.find(params[:id])
     @post_comments = @post.post_comments
     @current_user = current_user
   end
+
 
   def destroy
     @post_comment = PostComment.find_by(id: params[:id])

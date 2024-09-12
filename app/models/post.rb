@@ -34,6 +34,7 @@ class Post < ApplicationRecord
     end
   end
 
+
   # フォローする側から中間テーブルへのアソシエーション
   #has_many :relationships, foreign_key: :following_id
   # フォローする側からフォローされたユーザを取得する

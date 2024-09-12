@@ -7,7 +7,10 @@ devise :database_authenticatable, :registerable,
 has_many :posts, dependent: :destroy
 
 has_many :favorites, dependent: :destroy
-has_many :favoried_posts, through: :favorites, source: :post
+
+has_many :favorites
+
+has_many :favorite_posts, through: :favorites, source: :post
 
 has_many :post_comments, dependent: :destroy
 
@@ -67,5 +70,7 @@ GUEST_USER_EMAIL = "guest@example.com"
   def guest_user?
     email == GUEST_USER_EMAIL
   end
+
+
 
 end

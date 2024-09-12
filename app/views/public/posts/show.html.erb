@@ -113,7 +113,7 @@
           <div class="mb-3 mt-3">
             <%= form_with model: [@post, @post_comment], url: post_post_comments_path(@post) do |f| %>
               <%= f.text_area :comment, rows: '2', cols: '50', placeholder: "コメントをここに" %>
-              <%= f.submit "コメントする", class: "btn" %>
+              <%= f.submit "コメントする", class: "btn btn-light btn-sm" %>
             <% end %>
           </div>
 

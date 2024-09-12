@@ -4,11 +4,9 @@ class Public::UsersController < ApplicationController
   before_action :ensure_guest_user, only: [:edit]
 
   def create
-    user = User.new(user_params) # ストロングパラメーターを呼び出す
-    if user.save# ユーザーを作成できた場合の処理
-     redirect_to root_path, notice: "ユーザー登録が完了しました。"# 例えば、サインアップ成功メッセージを表示してリダイレクトするなど
-    else  # ユーザーを作成できなかった場合の処理
-     render :new# 例えば、エラーメッセージを表示して新規登録フォームを再表示するなど
+    user = User.new(user_params)
+    if user.save
+     redirect_to root_path, notice: "ユーザー登録が完了しました。"
     end
   end
 
@@ -33,6 +31,12 @@ class Public::UsersController < ApplicationController
     @users = user.followers
   end
 
+  def favorites
+    @user = User.find(params[:id])
+    @favorite_posts = @user.favorite_posts
+    @post = Post.new
+    @post_comment = PostComment.new
+  end
 
   def edit
     @user = User.find(params[:id])
@@ -54,13 +58,9 @@ class Public::UsersController < ApplicationController
     @user = User.find(params[:id])
     @user.destroy
     flash[:notice] = 'ユーザーを削除しました。'
-    redirect_to :root #削除に成功すればrootページに戻る
+    redirect_to :root 
   end
 
-  #def profile_image
-    #@user = User.find(params[:id])
-    #@user.profile_image.purge # 画像を削除する
-  #end
 
   def guest_sign_in
     user = User.guest

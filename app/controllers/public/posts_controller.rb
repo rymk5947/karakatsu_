@@ -20,7 +20,6 @@ class Public::PostsController < ApplicationController
     @post = Post.find(params[:id])
     @selected_genre = Post.find(params[:id]).genre
     @post_comment = PostComment.new
-    @user = User.find(@post.user.id)
   end
 
   def new
@@ -29,8 +28,9 @@ class Public::PostsController < ApplicationController
 
   def create
     @post = current_user.posts.new(post_params)
+
     if @post.save
-      redirect_to post_path(@post), notice: "投稿しました。"
+      redirect_to posts_path
     else
       render :new
     end
