@@ -21,7 +21,7 @@
       <%= form_for(@post, url: post_path(@post.id), method: :patch) do |f| %>
         <div class="form-group">
           <%= f.label :genre, "好きなジャンル" %>
-          <%= f.select :genre, options_for_select(Post.genres), { prompt: "選択されていません" }, class: "form-control" %>
+          <%= f.select :genre, options_for_select(Post.genres, f.object.genre), { prompt: "選択されていません" }, class: "form-control" %>
         </div>
 
         <div class="form-group">

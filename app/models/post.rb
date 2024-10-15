@@ -11,11 +11,16 @@ class Post < ApplicationRecord
 
   has_one_attached :photo
 
+  has_many :photos, dependent: :destroy
+  accepts_nested_attributes_for :photos, allow_destroy: true
+
   belongs_to :user
   has_many :favorites, dependent: :destroy
   has_many :favorited_users, through: :favorites, source: :user
 
   has_many :post_comments, dependent: :destroy
+
+  validates :message, presence: true
 
   with_options presence: true do
     validates :genre

@@ -58,14 +58,14 @@ class Public::UsersController < ApplicationController
     @user = User.find(params[:id])
     @user.destroy
     flash[:notice] = 'ユーザーを削除しました。'
-    redirect_to :root 
+    redirect_to :root
   end
 
 
   def guest_sign_in
     user = User.guest
     sign_in user
-    redirect_to posts_path, notice: "guestuserでログインしました。"
+    redirect_to posts_path, notice: "ゲストユーザーでログインしました。"
   end
 
   private

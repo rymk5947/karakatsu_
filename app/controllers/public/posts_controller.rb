@@ -23,16 +23,15 @@ class Public::PostsController < ApplicationController
   end
 
   def new
-    @posts = Post.new
+    @post = Post.new
   end
 
   def create
     @post = current_user.posts.new(post_params)
-
     if @post.save
-      redirect_to posts_path
+      redirect_to @post, notice: '投稿が成功しました。'
     else
-      render :new
+      render :new # エラー時に新規投稿フォームを再表示
     end
   end
 
@@ -43,6 +42,12 @@ class Public::PostsController < ApplicationController
   end
 
   def update
+    @post = Post.find(params[:id])
+  # チェックボックスがチェックされている場合は画像を削除
+    if params[:post][:_destroy] == "1" && @post.photo.attached?
+      @post.photo.purge
+    end
+
     if @post.update(post_params)
       redirect_to post_path(@post), notice: "更新しました。"
     else
@@ -64,7 +69,7 @@ class Public::PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:genre, :message, :photo)
+    params.require(:post).permit(:genre, :message, :photo, photos_attributes: [:id, :_destroy])
   end
 
   def correct_user
