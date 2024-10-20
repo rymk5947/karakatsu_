@@ -38,8 +38,6 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.1]
       t.text :introduction
       t.string :profile_image_id
       t.boolean :is_delete
-      t.string :privacy_status
-      t.boolean :comment_notification
 
       t.timestamps null: false
     end

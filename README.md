@@ -21,8 +21,8 @@
 - カラオケに関する情報を共有したいとき
 ​
 ## 設計書
-- ER図 ()
-- テーブル定義書 ()
+- ER図 (https://drive.google.com/file/d/1553fqKVKeR6YlTcWNTJAyOJV0jlmQbHU/view?usp=sharing)
+- テーブル定義書 (https://docs.google.com/spreadsheets/d/1MxsJLptUltF2bueyYSsF190kukRHfwbcQja17GM-xfw/edit?usp=sharing)
 
 ## 開発環境
 - OS：Linux(CentOS)
