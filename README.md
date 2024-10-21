@@ -34,7 +34,6 @@
 ## 使用素材
 - Unsplash　https://unsplash.com/ja
 - 写真AC https://www.photo-ac.com/
--
 
 
 ※架空の店舗名を使用しています。
