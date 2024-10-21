@@ -34,7 +34,7 @@ class Public::PostsController < ApplicationController
       render :new # エラー時に新規投稿フォームを再表示
     end
   end
-
+  
   def edit
     if @post.user != current_user
         redirect_to posts_path, alert: "不正なアクセスです。"
